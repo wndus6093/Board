@@ -31,18 +31,19 @@ class JpaRepositoryTest {
         this.articleCommentRepository = articleCommentRepository;
     }
 
-    @DisplayName("select 테스트")
+    @DisplayName("update 테스트")
     @Test
-    void givenTestData_whenSelecting_thenWorksFine(){
+    void givenTestData_whenUpdating_thenWorksFine(){
         //Given
-        long previousCount = articleRepository.count();
+        Article article = articleRepository.findById(1L).orElseThrow();
+        String updatedHashtag = "#springboot";
+        article.setHashtag(updatedHashtag);
+
         //When
-        List<Article> articles = articleRepository.findAll();
+        Article savedarticle = articleRepository.save(article);
 
         //Then
-        assertThat(articles)
-                .isNotNull()
-                .hasSize(0);
+        assertThat(savedarticle).hasFieldOrPropertyWithValue("hashtag", updatedHashtag);
 
     }
 }
