@@ -1,5 +1,6 @@
 package com.project.board.controller;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ class ArticleControllerTest {
         this.mvc = mvc;
     }
 
+    @Disabled("개발중")
     @DisplayName("[view] [GET] 게시글 리스트 (게시판) 페이지 - 정상호출")
     @Test
     public void givenNothing_whenRequestingArticlesView_thenReturnsArticlesView() throws Exception{
@@ -28,9 +30,12 @@ class ArticleControllerTest {
         mvc.perform(get("/article"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.TEXT_HTML))
-                .andExpect(model().attributeExists("articles"));
+                .andExpect(view().name("article/datail"))
+                .andExpect(model().attributeExists("articles"))
+                .andExpect(model().attributeExists("articlesComments"));
     }
 
+    @Disabled("개발중")
     @DisplayName("[view] [GET] 게시글 상세페이지 - 정상호출")
     @Test
     public void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception{
@@ -41,21 +46,25 @@ class ArticleControllerTest {
                 .andExpect(model().attributeExists("article"));
     }
 
+    @Disabled("개발중")
     @DisplayName("[view] [GET] 게시글 검색 전용 페이지 - 정상호출")
     @Test
     public void givenNothing_whenRequestingArticleSearchView_thenReturnsArticleSearchView() throws Exception{
 
         mvc.perform(get("/article/search"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML));
+                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(model().attributeExists("articles/search"));
     }
 
+    @Disabled("개발중")
     @DisplayName("[view] [GET] 게시글 검색 전용 페이지 - 정상호출")
     @Test
     public void givenNothing_whenRequestingArticleHashtagSearchView_thenReturnsArticleHashtagSearchView() throws Exception{
 
         mvc.perform(get("/article/search-hashtag"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML));
+                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(model().attributeExists("articles/search-hashtag"));
     }
 }
