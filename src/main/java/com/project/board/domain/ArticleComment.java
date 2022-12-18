@@ -16,10 +16,11 @@ import java.util.Objects;
 @ToString
 @Table(indexes = {
         @Index(columnList = "content"),
-        @Index(columnList = "createAt"),
-        @Index(columnList = "createBy")
+        @Index(columnList = "createdAt"),
+        @Index(columnList = "createdBy")
 })
-public class ArticleComent {
+@Entity
+public class ArticleComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,20 +34,20 @@ public class ArticleComent {
     @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt; // 수정일시
     @LastModifiedBy @Column(nullable = false, length = 100) private String modifiedBy; // 수정자
 
-    protected ArticleComent() {}
+    protected ArticleComment() {}
 
-    private ArticleComent(Article article, String content){
+    private ArticleComment(Article article, String content){
         this.article = article;
         this.content = content;
     }
-    public static ArticleComent of(Article article, String content){
-        return new ArticleComent(article, content);
+    public static ArticleComment of(Article article, String content){
+        return new ArticleComment(article, content);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ArticleComent that)) return false;
+        if (!(o instanceof ArticleComment that)) return false;
         return id != null && id.equals(that.id);
     }
 
