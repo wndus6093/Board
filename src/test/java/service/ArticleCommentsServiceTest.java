@@ -144,7 +144,6 @@ class ArticleCommentsServiceTest {
 
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
-                1L,
                 "wndus",
                 "password",
                 "wndus@mail.com",
@@ -157,13 +156,13 @@ class ArticleCommentsServiceTest {
         );
     }
 
-    private ArticleComment createArticleComment(String content) {
-        return ArticleComment.of(
-                Article.of(createUserAccount(),"title","content","hashtag"),
-                createUserAccount(),
-                content
-        );
-    }
+//    private ArticleComment createArticleComment(String content) {
+//        return ArticleComment.of(
+//                Article.of(createUserAccount(),"title","content","hashtag"),
+//                createUserAccount(),
+//                content
+//        );
+//    }
 
     private UserAccount createUserAccount() {
         return UserAccount.of(

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import service.ArticleService;
 
+
 @RequiredArgsConstructor
 @RequestMapping("/articles")
 @Controller
@@ -37,8 +38,8 @@ public class ArticleController {
     public String article(@PathVariable Long articleId, ModelMap map) {
         ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticle(articleId));
         map.addAttribute("article", article);
-        map.addAttribute("articleComment",article.articleCommentResponses());
+        map.addAttribute("articleComment",article.articleCommentsResponse());
 
-        return "articles/index";
+        return "articles/detail";
     }
 }

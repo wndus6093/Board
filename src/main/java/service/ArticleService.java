@@ -3,7 +3,6 @@ package service;
 import com.project.board.domain.Article;
 import com.project.board.domain.type.SearchType;
 import com.project.board.dto.ArticleDto;
-import com.project.board.dto.ArticleUpdateDto;
 import com.project.board.dto.ArticleWithCommentsDto;
 import com.project.board.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;

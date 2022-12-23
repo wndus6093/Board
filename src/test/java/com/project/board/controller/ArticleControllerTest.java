@@ -23,8 +23,6 @@ import java.util.Set;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssumptions.given;
-import static org.hamcrest.CoreMatchers.any;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalMatchers.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -82,8 +80,8 @@ class ArticleControllerTest {
                 .andExpect(model().attributeExists("articles/search"));
     }
 
-
-    @DisplayName("[view] [GET] 게시글 검색 전용 페이지 - 정상호출")
+    @Disabled("구현중")
+    @DisplayName("[view] [GET] 게시글 해쉬태그 검색 페이지 - 정상호출")
     @Test
     public void givenNothing_whenRequestingArticleHashtagSearchView_thenReturnsArticleHashtagSearchView() throws Exception{
 

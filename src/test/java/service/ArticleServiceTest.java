@@ -4,10 +4,10 @@ import com.project.board.domain.Article;
 import com.project.board.domain.UserAccount;
 import com.project.board.domain.type.SearchType;
 import com.project.board.dto.ArticleDto;
-import com.project.board.dto.ArticleUpdateDto;
 import com.project.board.dto.ArticleWithCommentsDto;
 import com.project.board.dto.UserAccountDto;
 import com.project.board.repository.ArticleRepository;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
 
@@ -93,7 +92,7 @@ class ArticleServiceTest {
         given(articleRepository.findById(articleId)).willReturn(Optional.empty());
 
         // When
-        Throwable t = catchThrowable(() -> sut.getArticle(articleId));
+        Throwable t = AssertionsForClassTypes.catchThrowable(() -> sut.getArticle(articleId));
 
         // Then
         assertThat(t)
@@ -166,10 +165,10 @@ class ArticleServiceTest {
 
     private UserAccount createUserAccount() {
         return UserAccount.of(
-                "uno",
+                "wndus",
                 "password",
-                "uno@email.com",
-                "Uno",
+                "wndus@email.com",
+                "wndus",
                 null
         );
     }
@@ -194,23 +193,22 @@ class ArticleServiceTest {
                 content,
                 hashtag,
                 LocalDateTime.now(),
-                "Uno",
+                "wndus",
                 LocalDateTime.now(),
-                "Uno");
+                "wndus");
     }
 
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
-                1L,
-                "uno",
+                "wndus",
                 "password",
-                "uno@mail.com",
-                "Uno",
+                "wndus@mail.com",
+                "wndus",
                 "This is memo",
                 LocalDateTime.now(),
-                "uno",
+                "wndus",
                 LocalDateTime.now(),
-                "uno"
+                "wndus"
         );
     }
 
