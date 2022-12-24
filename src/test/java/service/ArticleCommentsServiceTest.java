@@ -156,13 +156,13 @@ class ArticleCommentsServiceTest {
         );
     }
 
-//    private ArticleComment createArticleComment(String content) {
-//        return ArticleComment.of(
-//                Article.of(createUserAccount(),"title","content","hashtag"),
-//                createUserAccount(),
-//                content
-//        );
-//    }
+    private ArticleComment createArticleComment(String content) {
+        return ArticleComment.of(
+                Article.of(createUserAccount(),"title","content","hashtag").getUserAccount(),
+                createArticle(),
+                content
+        );
+    }
 
     private UserAccount createUserAccount() {
         return UserAccount.of(
