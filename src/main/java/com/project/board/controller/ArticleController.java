@@ -1,6 +1,9 @@
 package com.project.board.controller;
 
-import com.project.board.domain.type.SearchType;
+import com.project.board.domain.constant.FormStatus;
+import com.project.board.domain.constant.SearchType;
+import com.project.board.dto.UserAccountDto;
+import com.project.board.dto.request.ArticleRequest;
 import com.project.board.dto.response.ArticleResponse;
 import com.project.board.dto.response.ArticleWithCommentsResponse;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +47,8 @@ public class ArticleController {
 
     @GetMapping("/{articleId}")
     public String article(@PathVariable Long articleId, ModelMap map) {
-        ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticle(articleId));
+        ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticleWithComments(articleId));
+
         map.addAttribute("article", article);
         map.addAttribute("articleComments", article.articleCommentsResponse());
         map.addAttribute("totalCount", articleService.getArticleCount());
@@ -77,7 +81,7 @@ public class ArticleController {
         return "articles/form";
     }
 
-    @PostMapping("/form")
+    @PostMapping ("/form")
     public String postNewArticle(ArticleRequest articleRequest) {
         // TODO: 인증 정보를 넣어줘야 한다.
         articleService.saveArticle(articleRequest.toDto(UserAccountDto.of(
