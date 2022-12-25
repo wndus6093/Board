@@ -16,17 +16,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("View 컨트롤러 [인증]")
 @Import(SecurityConfig.class)
 @WebMvcTest
-public class AuthControllerTest {
+ class AuthControllerTest {
 
     private final MockMvc mvc;
 
-    public AuthControllerTest(@Autowired MockMvc mvc) {
+    AuthControllerTest(@Autowired MockMvc mvc) {
         this.mvc = mvc;
     }
 
     @DisplayName("[view] [GET] 로그인 페이지 - 정상호출")
     @Test
-    public void givenNothing_whenLoggingIn_thenReturnsLoginView() throws Exception{
+    void givenNothing_whenLoggingIn_thenReturnsLoginView() throws Exception{
 
         mvc.perform(get("/article"))
                 .andExpect(status().isOk())

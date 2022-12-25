@@ -37,7 +37,7 @@ class ArticleCommentContollerTest {
 
     @MockBean private ArticleCommentService articleCommentService;
 
-    public ArticleCommentContollerTest(
+   ArticleCommentContollerTest(
             @Autowired MockMvc mvc,
             @Autowired FormDataEncoder formDataEncoder
     ){
