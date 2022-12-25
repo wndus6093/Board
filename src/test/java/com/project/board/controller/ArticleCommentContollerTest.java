@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import com.project.board.service.ArticleCommentService;
@@ -44,7 +45,7 @@ class ArticleCommentContollerTest {
         this.formDataEncoder = formDataEncoder;
     }
 
-    @WithUserDetails
+    @WithUserDetails(value="wndustest", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @DisplayName("[view][POST] 댓글 등록 - 정상 호출")
     @Test
     void givenArticleCommentInfo_whenRequesting_thenSavesNewArticleComment() throws Exception {
@@ -66,7 +67,7 @@ class ArticleCommentContollerTest {
         then(articleCommentService).should().saveArticleComment(any(ArticleCommentDto.class));
     }
 
-    @WithUserDetails
+    @WithUserDetails(value="wndustest", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @DisplayName("[view][GET] 댓글 삭제 - 정상 호출")
     @Test
     void givenArticleCommentIdToDelete_whenRequesting_thenDeletesArticleComment() throws Exception {
