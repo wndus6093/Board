@@ -1,11 +1,13 @@
 package com.project.board.controller;
 
 
-import com.project.board.config.SecurityConfig;
+
+import com.project.board.config.TestSecurityConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.TestComponent;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -14,8 +16,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("View 컨트롤러 [인증]")
-@Import(SecurityConfig.class)
-@WebMvcTest
+@Import(TestSecurityConfig.class)
+@WebMvcTest(AuthControllerTest.EmptyController.class)
  class AuthControllerTest {
 
     private final MockMvc mvc;
@@ -33,5 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
 
     }
+
+    @TestComponent
+    static class EmptyController {}
 
 }
