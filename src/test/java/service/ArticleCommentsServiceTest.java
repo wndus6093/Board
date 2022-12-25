@@ -2,6 +2,7 @@ package service;
 
 import com.project.board.domain.Article;
 import com.project.board.domain.ArticleComment;
+import com.project.board.domain.Hashtag;
 import com.project.board.domain.UserAccount;
 import com.project.board.dto.ArticleCommentDto;
 import com.project.board.dto.UserAccountDto;
@@ -19,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -26,7 +28,7 @@ import static org.mockito.BDDMockito.*;
 
 @DisplayName("비즈니스 로직 - 댓글")
 @ExtendWith(MockitoExtension.class)
-class ArticleCommentsServiceTest {
+class ArticleCommentServiceTest {
 
     @InjectMocks private ArticleCommentService sut;
 
@@ -125,11 +127,11 @@ class ArticleCommentsServiceTest {
     void givenArticleCommentId_whenDeletingArticleComment_thenDeletesArticleComment() {
         // Given
         Long articleCommentId = 1L;
-        String userId = "wndus";
+        String userId = "uno";
         willDoNothing().given(articleCommentRepository).deleteByIdAndUserAccount_UserId(articleCommentId, userId);
 
         // When
-        sut.deleteArticleComment(articleCommentId,userId);
+        sut.deleteArticleComment(articleCommentId, userId);
 
         // Then
         then(articleCommentRepository).should().deleteByIdAndUserAccount_UserId(articleCommentId, userId);
@@ -143,29 +145,29 @@ class ArticleCommentsServiceTest {
                 createUserAccountDto(),
                 content,
                 LocalDateTime.now(),
-                "wndus",
+                "uno",
                 LocalDateTime.now(),
-                "wndus"
+                "uno"
         );
     }
 
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
-                "wndus",
+                "uno",
                 "password",
-                "wndus@mail.com",
-                "wndus",
+                "uno@mail.com",
+                "Uno",
                 "This is memo",
                 LocalDateTime.now(),
-                "wndus",
+                "uno",
                 LocalDateTime.now(),
-                "wndus"
+                "uno"
         );
     }
 
     private ArticleComment createArticleComment(String content) {
         return ArticleComment.of(
-                Article.of(createUserAccount(),"title","content","hashtag"),
+                createArticle(),
                 createUserAccount(),
                 content
         );
@@ -173,21 +175,27 @@ class ArticleCommentsServiceTest {
 
     private UserAccount createUserAccount() {
         return UserAccount.of(
-                "wndus",
+                "uno",
                 "password",
-                "wndus@email.com",
-                "wndus",
+                "uno@email.com",
+                "Uno",
                 null
         );
     }
 
     private Article createArticle() {
-        return Article.of(
+        Article article = Article.of(
                 createUserAccount(),
                 "title",
-                "content",
-                "#java"
+                "content"
         );
+        article.addHashtags(Set.of(createHashtag(article)));
+
+        return article;
+    }
+
+    private Hashtag createHashtag(Article article) {
+        return Hashtag.of("java");
     }
 
 }
