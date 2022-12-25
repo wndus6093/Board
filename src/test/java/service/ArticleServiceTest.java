@@ -9,6 +9,7 @@ import com.project.board.dto.UserAccountDto;
 import com.project.board.repository.ArticleRepository;
 import com.project.board.repository.UserAccountRepository;
 
+import com.project.board.service.ArticleService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

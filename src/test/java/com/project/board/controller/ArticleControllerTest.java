@@ -1,6 +1,6 @@
 package com.project.board.controller;
 
-import com.project.board.config.SecurityConfig;
+import com.project.board.config.TestSecurityConfig;
 import com.project.board.domain.constant.FormStatus;
 import com.project.board.domain.constant.SearchType;
 import com.project.board.dto.ArticleDto;
@@ -22,8 +22,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import service.ArticleService;
-import service.PaginationService;
+import com.project.board.service.ArticleService;
+import com.project.board.service.PaginationService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 @DisplayName("View 컨트롤러 - 게시글")
-@Import({SecurityConfig.class, FormDataEncoder.class})
+@Import({TestSecurityConfig.class, FormDataEncoder.class})
 @WebMvcTest(ArticleController.class)
 class ArticleControllerTest {
 
