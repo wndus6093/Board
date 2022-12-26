@@ -44,6 +44,7 @@ public class ArticleController {
         map.addAttribute("articles", articles);
         map.addAttribute("paginationBarNumbers", barNumbers);
         map.addAttribute("searchTypes", SearchType.values());
+        map.addAttribute("searchTypeHashtag", SearchType.HASHTAG);
 
         return "articles/index";
     }
@@ -55,12 +56,13 @@ public class ArticleController {
         map.addAttribute("article", article);
         map.addAttribute("articleComments", article.articleCommentResponse());
         map.addAttribute("totalCount", articleService.getArticleCount());
+        map.addAttribute("searchTypeHashtag", SearchType.HASHTAG);
 
         return "articles/detail";
     }
 
     @GetMapping("/search-hashtag")
-    public String searchHashtag(
+    public String searchArticleHashtag(
             @RequestParam(required = false) String searchValue,
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
             ModelMap map
@@ -72,7 +74,7 @@ public class ArticleController {
         map.addAttribute("articles", articles);
         map.addAttribute("hashtags", hashtags);
         map.addAttribute("paginationBarNumbers", barNumbers);
-        map.addAttribute("searchTypes", SearchType.HASHTAG);
+        map.addAttribute("searchType", SearchType.HASHTAG);
 
         return "articles/search-hashtag";
     }
@@ -84,12 +86,11 @@ public class ArticleController {
         return "articles/form";
     }
 
-    @PostMapping ("/form")
+    @PostMapping("/form")
     public String postNewArticle(
             @AuthenticationPrincipal BoardPrincipal boardPrincipal,
             ArticleRequest articleRequest
     ) {
-
         articleService.saveArticle(articleRequest.toDto(boardPrincipal.toDto()));
 
         return "redirect:/articles";
@@ -105,19 +106,18 @@ public class ArticleController {
         return "articles/form";
     }
 
-    @PostMapping ("/{articleId}/form")
+    @PostMapping("/{articleId}/form")
     public String updateArticle(
             @PathVariable Long articleId,
             @AuthenticationPrincipal BoardPrincipal boardPrincipal,
             ArticleRequest articleRequest
-
     ) {
         articleService.updateArticle(articleId, articleRequest.toDto(boardPrincipal.toDto()));
 
         return "redirect:/articles/" + articleId;
     }
 
-    @PostMapping ("/{articleId}/delete")
+    @PostMapping("/{articleId}/delete")
     public String deleteArticle(
             @PathVariable Long articleId,
             @AuthenticationPrincipal BoardPrincipal boardPrincipal
@@ -126,4 +126,5 @@ public class ArticleController {
 
         return "redirect:/articles";
     }
+
 }

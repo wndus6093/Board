@@ -23,7 +23,6 @@ public class ArticleCommentContoller {
             @AuthenticationPrincipal BoardPrincipal boardPrincipal,
             ArticleCommentRequest articleCommentRequest
     ) {
-        //TODO : 인증 정보 넣어주기
         articleCommentService.saveArticleComment(articleCommentRequest.toDto(boardPrincipal.toDto()));
 
         return "redirect:/articles/" + articleCommentRequest.articleId();

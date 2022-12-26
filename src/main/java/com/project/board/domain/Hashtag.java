@@ -48,6 +48,7 @@ public class Hashtag extends AuditingFields {
         return this.getId() != null && this.getId().equals(that.getId());
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(this.getId());
